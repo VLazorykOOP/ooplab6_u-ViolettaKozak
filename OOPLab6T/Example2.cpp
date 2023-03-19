@@ -1,13 +1,10 @@
-﻿#include "Lab6Example.h"
 #include <iostream>
-using namespace std; //  гоглг
+using namespace std;
 namespace SpaceExample2 {
-    // Abstract Class
-// Створити абстрактний базовий клас домашня тварина із віртуальною функцією говорить. 
-// Створити похідні класи: кішка, собака, корова, качка та курка. 
     using namespace std;
 #include <iostream>
-#include <cmath>
+#include <math.h>
+    const float M_PI = 3.14159265358979323846;
 
     using namespace std;
 
@@ -77,7 +74,4 @@ namespace SpaceExample2 {
 
         return 0;
     }
-
-
-
 }
