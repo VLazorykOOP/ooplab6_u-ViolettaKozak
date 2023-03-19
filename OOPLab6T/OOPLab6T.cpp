@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include "Lab6Example.h"
 
 int main()
