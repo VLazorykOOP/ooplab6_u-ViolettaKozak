@@ -1,4 +1,4 @@
-﻿ #include "Lab6Example.h"
+#include "Lab6Example.h"
 #include <iostream>
 
 void MenuExample() {
@@ -23,9 +23,9 @@ void Example()
 		std::cin.get();
 
 		switch (ch) {
-		case '1':  SpaceExample1::mainExample1();   break;
-		case '2':  SpaceExample2::mainExample2();   break;
-		case '3':  SpaceExample3::mainExample3();   break;
+		case '1':  SpaceExample1::main();   break;
+		case '2':  SpaceExample2::main();   break;
+		case '3':  SpaceExample3::main();   break;
 		case '4':  return;
 		case 'e':  return;
 		}
@@ -33,8 +33,7 @@ void Example()
 		ch = std::cin.get();
 	} while (ch != '6');
 
-	return ;
+	return;
 }
-
 
 
