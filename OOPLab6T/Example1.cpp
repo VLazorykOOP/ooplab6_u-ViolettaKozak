@@ -1,7 +1,7 @@
-﻿#include "Lab6Example.h"
+#include "Lab6Example.h"
 #include <iostream>
 
-namespace SpaceExample2
+namespace SpaceExample1
 {
     using namespace std;
 
@@ -10,6 +10,7 @@ namespace SpaceExample2
         int age;
     public:
         Animal(int a) : age(a) {}
+
         void move() {
             cout << "Animal is moving." << endl;
         }
@@ -19,7 +20,9 @@ namespace SpaceExample2
     protected:
         string name;
     public:
-        Miths(string n) : name(n) {}
+        Miths() :Miths("dragon") {}
+        Miths(string n) : name(n) {};
+
         void usePower() {
             cout << "Miths are using their power." << endl;
         }
@@ -55,24 +58,27 @@ namespace SpaceExample2
         }
     };
 
-    class Griffin : public Unicorn, public God, public MithicsAnimal {
+    class Griffin : public Unicorn, public God 
+    {
     protected:
         int wingspan;
     public:
-        Griffin(int a, string n, string o, int h, string r, int ws) : Unicorn(a, n, o, h), God(n, r), MithicsAnimal(a, n, o), wingspan(ws) {}
+        Griffin(int a, string n, string o, int h, string r, int ws) : Unicorn(a, n, o, h), God(n, r), wingspan(ws) {}
+
         void fly() {
             cout << "Griffin is flying." << endl;
         }
     };
 
     int main() {
+        cout << "Without virtual inheritance" << endl;
         cout << "Size of Animal object: " << sizeof(Animal) << endl;
         cout << "Size of Miths object: " << sizeof(Miths) << endl;
         cout << "Size of MithicsAnimal object: " << sizeof(MithicsAnimal) << endl;
         cout << "Size of God object: " << sizeof(God) << endl;
         cout << "Size of Unicorn object: " << sizeof(Unicorn) << endl;
         cout << "Size of Griffin object: " << sizeof(Griffin) << endl;
-
+        cout << endl << "With virtual inheritance" << endl;
         cout << "Size of Animal object: " << sizeof(Animal) << endl;
         cout << "Size of Miths object: " << sizeof(Miths) << endl;
         cout << "Size of MithicsAnimal object: " << sizeof(MithicsAnimal) << endl;
