@@ -1,69 +1,84 @@
 ﻿#include "Lab6Example.h"
 #include <iostream>
-namespace SpaceExample1 {
-    ///Задача. Створити дві ієрархії класів без віртуального та з віртуальним спадкуванням, 
-    // з елементами даних класів у кожному класі. Схема успадкування на рисунку за варіантами. 
-    // Створити об’єкти похідних класів з віртуальним та без віртуального успадкуванням. 
-    // Вивести розміри об’єктів даних класів.
-	class Animal
-	{
-	public:
-		Animal() {};
-		~Animal() {};
 
-	private:
+using namespace std;
 
-	};
+class Animal {
+protected:
+    int age;
+public:
+    Animal(int a) : age(a) {}
+    void move() {
+        cout << "Animal is moving." << endl;
+    }
+};
 
-	class Miths
-	{
-	public:
-		Miths() {};
-		~Miths() {};
+class Miths {
+protected:
+    string name;
+public:
+    Miths(string n) : name(n) {}
+    void usePower() {
+        cout << "Miths are using their power." << endl;
+    }
+};
 
-	private:
+class MithicsAnimal : public Animal, public Miths {
+protected:
+    string origin;
+public:
+    MithicsAnimal(int a, string n, string o) : Animal(a), Miths(n), origin(o) {}
+    void breatheFire() {
+        cout << "MithicsAnimal is breathing fire." << endl;
+    }
+};
 
-	};
+class God : virtual public Miths {
+protected:
+    string realm;
+public:
+    God(string n, string r) : Miths(n), realm(r) {}
+    void createWorld() {
+        cout << "God is creating the world." << endl;
+    }
+};
 
-	class MithicsAnimal: protected Animal, Miths
-	{
-	public:
-		MithicsAnimal() {};
-		~MithicsAnimal() {};
+class Unicorn : public MithicsAnimal {
+protected:
+    int hornLength;
+public:
+    Unicorn(int a, string n, string o, int h) : MithicsAnimal(a, n, o), hornLength(h) {}
+    void heal() {
+        cout << "Unicorn is healing wounds." << endl;
+    }
+};
 
-	private:
+class Griffin : public Unicorn, public God, public MithicsAnimal {
+protected:
+    int wingspan;
+public:
+    Griffin(int a, string n, string o, int h, string r, int ws) : Unicorn(a, n, o, h), God(n, r), MithicsAnimal(a, n, o), wingspan(ws) {}
+    void fly() {
+        cout << "Griffin is flying." << endl;
+    }
+};
 
-	};
+int main() {
+    // Without virtual inheritance
+    cout << "Size of Animal object: " << sizeof(Animal) << endl;
+    cout << "Size of Miths object: " << sizeof(Miths) << endl;
+    cout << "Size of MithicsAnimal object: " << sizeof(MithicsAnimal) << endl;
+    cout << "Size of God object: " << sizeof(God) << endl;
+    cout << "Size of Unicorn object: " << sizeof(Unicorn) << endl;
+    cout << "Size of Griffin object: " << sizeof(Griffin) << endl;
 
-	class God: protected Miths
-	{
-	public:
-		God() {};
-		~God() {};
+    // With virtual inheritance
+    cout << "Size of Animal object: " << sizeof(Animal) << endl;
+    cout << "Size of Miths object: " << sizeof(Miths) << endl;
+    cout << "Size of MithicsAnimal object: " << sizeof(MithicsAnimal) << endl;
+    cout << "Size of God object: " << sizeof(God) << endl;
+    cout << "Size of Unicorn object: " << sizeof(Unicorn) << endl;
+    cout << "Size of Griffin object: " << sizeof(Griffin) << endl;
 
-	private:
-
-	};
-
-	class Unicorn: protected MithicsAnimal
-	{
-	public:
-		Unicorn() {};
-		~Unicorn() {};
-
-	private:
-
-	};
-
-	class Griffin: protected Unicorn, God, MithicsAnimal
-	{
-	public:
-		Griffin() {};
-		~Griffin() {};
-
-	private:
-
-	};
-
-	
+    return 0;
 }
