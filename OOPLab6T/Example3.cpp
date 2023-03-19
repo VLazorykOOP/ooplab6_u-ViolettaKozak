@@ -1,20 +1,12 @@
-﻿#include "Lab6Example.h"
-#include <iostream>
-#include <string>
+#include "Lab6Example.h"
 using namespace std;
 namespace SpaceExample3 {
-    // MultipleiInherance.cpp 
-// Ієрархія типів складається з сутностей: 
-// машина, пасажирський транспорт і автобус.
-//
-
-
 #include <iostream>
 #include <string>
 
     using namespace std;
 
-    class Person 
+    class Person
     {
     protected:
         string name;
@@ -25,24 +17,26 @@ namespace SpaceExample3 {
             : name(name), surname(surname), age(age) {}
         virtual ~Person() {}
 
-        friend istream& operator>>(istream& is, Person& p) 
+        friend istream& operator>>(istream& is, Person& p)
         {
-            cout << "Введіть ім'я: ";
+            cout << "Input name: ";
             is >> p.name;
-            cout << "Введіть вік: ";
+            cout << "Input surename: ";
+            is >> p.surname;
+            cout << "Input age: ";
             is >> p.age;
             return is;
         }
 
-        friend ostream& operator<<(ostream& os, const Person& p) 
+        friend ostream& operator<<(ostream& os, const Person& p)
         {
-            os << "Ім'я: " << p.name << ", вік: " << p.age << endl;
+            cout << "Name: " << p.name << ", Surename: " << p.surname << ", age" << p.age << endl;
             return os;
         }
 
-        virtual void printInfo() 
+        virtual void printInfo()
         {
-            cout << "Ім'я: " << name << ", вік: " << age << endl;
+            cout << "Name: " << name << ", Surename: " << surname << ", age: " << age << endl;
         }
 
     };
@@ -55,12 +49,12 @@ namespace SpaceExample3 {
         Woman(string name, string surname, int age, string hasChildren)
             : Person(name, surname, age), hasChildren(hasChildren) {}
 
-        virtual ~Woman(){}
+        virtual ~Woman() {}
 
         friend istream& operator>>(istream& is, Woman& w)
         {
             is >> static_cast<Person&>(w);
-            cout << "Має дітей?: ";
+            cout << "Has children? ";
             is >> w.hasChildren;
             return is;
         }
@@ -68,19 +62,18 @@ namespace SpaceExample3 {
         friend ostream& operator<<(ostream& os, const Woman& w)
         {
             os << static_cast<const Person&>(w);
-            os << "Має дітей?: " << w.hasChildren << endl;
+            os << "Has children? " << w.hasChildren << endl;
             return os;
         }
 
         virtual void printInfo()
         {
-            Person::printInfo();
-            cout << "Має дітей? " << hasChildren << endl;
+            cout << "Name: " << name << ", Surename: " << surname << ", age: " << age <<"Has children? " << hasChildren << endl;
         }
 
     };
 
-    class Employee: public Person
+    class Employee : public Person
     {
     protected:
         float salary;
@@ -90,13 +83,13 @@ namespace SpaceExample3 {
         virtual ~Employee() {}
 
         virtual void printInfo() {
-            cout << "Ім'я: " << name << ", прізвище: " << surname << ", вік: " << age << ", зарплата: " << salary << endl;
+            cout << "Name: " << name << ", Surename: " << surname << ", age: " << age << ", salary: " << salary << endl;
         }
 
         friend istream& operator>>(istream& is, Employee& e)
         {
             is >> static_cast<Person&>(e);
-            cout << "Зарплата: ";
+            cout << "Salary: ";
             is >> e.salary;
             return is;
         }
@@ -104,7 +97,7 @@ namespace SpaceExample3 {
         friend ostream& operator<<(ostream& os, const Employee& e)
         {
             os << static_cast<const Person&>(e);
-            os << "Зарплата: " << e.salary << endl;
+            os << "Salary: " << e.salary << endl;
             return os;
         }
 
@@ -116,28 +109,28 @@ namespace SpaceExample3 {
         float upcomingMaternityLeave;
     public:
         WomanEmployee(string name, string surname, int age, float salary, string hasChildren, float upcomingMaternityLeave)
-            : Person(name, surname, age), Woman(name, surname, age, hasChildren), Employee(name, surname, age, salary), upcomingMaternityLeave(upcomingMaternityLeave) {}
+            :Woman(name, surname, age, hasChildren), Employee(name, surname, age, salary), upcomingMaternityLeave(upcomingMaternityLeave) {}
         virtual ~WomanEmployee() {}
 
         virtual void printInfo() {
-            cout << "Ім'я: " << name << ", прізвище: " << surname << ", вік: " << age << ", зарплата: " << salary << ", має дітей: " << hasChildren << ", очікувані декретні: " << upcomingMaternityLeave << endl;
+            cout << "Name: " << Woman::name << ", Surename: " << Woman::surname << ", age: " << Woman::age << ", salary: " << salary << ", Has children? " << hasChildren << ", upcoming maternity leave: " << upcomingMaternityLeave << endl;
         }
 
         friend istream& operator>>(istream& is, WomanEmployee& we)
         {
             is >> static_cast<Employee&>(we);
-            cout << "Має дітей: ";
+            cout << "Has children? ";
             is >> we.hasChildren;
-            cout << "Очікувані декретні: ";
-            is << we.upcomingMaternityLeave;
+            cout << "Upcoming maternity leave: ";
+            is >> we.upcomingMaternityLeave;
             return is;
         }
 
         friend ostream& operator<<(ostream& os, const WomanEmployee& we)
         {
             os << static_cast<const Employee&>(we);
-            os << "Має дітей? " << we.hasChildren << endl;
-            os << "Очікувані декретні: " << we.upcomingMaternityLeave << endl;
+            os << "Has children? " << we.hasChildren << endl;
+            os << "Upcoming maternity leave: " << we.upcomingMaternityLeave << endl;
             return os;
         }
     };
@@ -146,16 +139,16 @@ namespace SpaceExample3 {
     int main()
     {
         Person person("John", "Doe", 30);
-        cout << person;
+        cout << person<<endl;
 
         Woman woman("Jane", "Doe", 28, "yes");
-        cout << woman;
+        cout << woman<<endl;
 
         Employee employee("Adam", "Smith", 35, 5000.0);
-        cout << employee;
+        cout << employee<<endl;
 
         WomanEmployee womanEmployee("Eve", "Smith", 33, 4500.0, "yes", 6.0);
-        cout << womanEmployee;
+        cout << womanEmployee<<endl;
 
         return 0;
     }
