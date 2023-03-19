@@ -1,4 +1,4 @@
-﻿#include "Lab6Example.h"
+﻿ #include "Lab6Example.h"
 #include <iostream>
 
 void MenuExample() {
