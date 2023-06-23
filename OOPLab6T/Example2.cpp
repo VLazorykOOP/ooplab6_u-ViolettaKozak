@@ -1,152 +1,77 @@
-﻿#include "Lab6Example.h"
 #include <iostream>
-#include <string>
-#include <time.h>
-using namespace std; //  гоглг
+using namespace std;
 namespace SpaceExample2 {
-    // Abstract Class
-// Створити абстрактний базовий клас домашня тварина із віртуальною функцією говорить. 
-// Створити похідні класи: кішка, собака, корова, качка та курка. 
     using namespace std;
-    class Pet {
-    protected:
-        string name;
-        int age;
-        int numberOfLegs = 0;
-    public:
-        Pet() : age(0), name("noname") { }
-        Pet(string n, int a) : age(a), name(n) { }
+#include <iostream>
+#include <math.h>
+    const float M_PI = 3.14159265358979323846;
 
-        virtual string Say() = 0;
-        virtual int Legs() = 0;
+    using namespace std;
+
+    class Shape {
+    public:
+        virtual double perimeter() = 0;
     };
 
-    class Cat : public Pet {
-
+    class Rectangle : public Shape {
+    private:
+        double width;
+        double height;
     public:
-        Cat(string n, int a) : Pet(n, a) {}
-        virtual string Say() override
-        {
-            string rt = string("Mayu-mayu - Cat ") + name;
-            return rt;
+        Rectangle(double w, double h) : width(w), height(h) {}
+        double perimeter() override {
+            return 2 * (width + height);
         }
-        virtual int Legs() override { return 4; }
     };
 
-    class Dog : public Pet {
+    class Circle : public Shape {
+    private:
+        double radius;
     public:
-        Dog(string n, int a) : Pet(n, a) {}
-        virtual string Say() override
-        {
-            string rt = string("Gau-gau - Dog ") + name;
-            return rt;
-            //return "Gau-gau";
+        Circle(double r) : radius(r) {}
+        double perimeter() override {
+            return 2 * M_PI * radius;
         }
-        virtual int Legs() override { return 4; }
-
     };
 
-    class Cow : public Pet {
+    class RightTriangle : public Shape {
+    private:
+        double a;
+        double b;
+        double c;
     public:
-        Cow(string n, int a) : Pet(n, a) {}
-        virtual string Say() override
-        {
-            string rt = string("Mu-mu - Cow ") + name;
-            return rt;
-            //  return "Mu-mu";
+        RightTriangle(double side1, double side2) : a(side1), b(side2) {
+            c = sqrt(a * a + b * b);
         }
-        virtual int Legs() override { return 4; }
+        double perimeter() override {
+            return a + b + c;
+        }
     };
 
-    class Duke : public Pet {
+    class Trapezium : public Shape {
+    private:
+        double a;
+        double b;
+        double c;
+        double d;
     public:
-        Duke(string n, int a) : Pet(n, a) {}
-        virtual string Say() override
-        {
-            string rt = string("Kraj-kraj - Duke ") + name;
-            return rt;
-            // return "Kraj-kraj";
+        Trapezium(double side1, double side2, double side3, double side4) : a(side1), b(side2), c(side3), d(side4) {}
+        double perimeter() override {
+            return a + b + c + d;
         }
-        virtual int Legs() override { return 2; }
-
     };
-    class Chicken : public Pet {
-    public:
-        Chicken(string n, int a) : Pet(n, a) {}
-        virtual string Say() override
-        {
-            string rt = string("Ko-ko - Chicken ") + name;
-            return rt;
-            //   return "Ko-ko";
-        }
-        virtual int Legs() override { return 2; }
 
-    };
-    string setNamePets() {
-        string name;
-        int r1 = 1, r2 = 0;
-        string n1[7] = { "Ro",  "Bo",   "Sor",  "Muri", "Cusi", "Duri", "Zo" };
-        string n2[7] = { "ko",  "no",   "vik",  "ro",   "mo",   "zo",   "vo" };
-        r1 = rand() % 6;
-        r2 = rand() % 6;
-        name = n1[r1] + n2[r2];
-        return name;
-    }
-    int mainExample2()
-    {
-        
-        cout << "Example 2 \n";
-        Pet** masPets;
-        int n = 0, type = 1;
-        int age = 0;
-        string name;
-        do {
-            cout << "How many pets \n";
-            cin >> n;
-        } while (n <= 0 || n > 100);
-        masPets = new Pet * [n];
-        cout << " input random pets press 1 <enter> ";
-        int rn;
-        srand(n);
-        cin >> rn;
-        for (int i = 0; i < n; i++) {
-            if (rn == 1) {
-                type = 1 + rand() % 5;
-                age = rand() % 20;
-                name = setNamePets();
-            }
-            else {
-                do {
-                    cout << "Input:  \n";
-                    cout << "1 - if it is a cat \n";
-                    cout << "2 - if it is a dog \n";
-                    cout << "3 - if it is a cow \n";
-                    cout << "4 - if it is a duke \n";
-                    cout << "5 - if it is a chicken \n";
-                    cin >> type;
-                } while (type < 1 || type>5);
-                cout << "Input name : "; cin >> name;
-                cout << "Input age of the animal "; cin >> age;
-            }
-            switch (type) {
-            case 1: masPets[i] = new Cat(name, age); break;
-            case 2: masPets[i] = new Dog(name, age); break;
-            case 3: masPets[i] = new Cow(name, age); break;
-            case 4: masPets[i] = new Duke(name, age); break;
-            case 5: masPets[i] = new Chicken(name, age); break;
-            }
-        }
+    int main() {
+        Rectangle r(3.0, 4.0);
+        Circle c(2.5);
+        RightTriangle t(3.0, 4.0);
+        Trapezium z(1.0, 2.0, 3.0, 4.0);
 
-        cout << " Singing pets : \n ";
-        int numleg = 0;
-        for (int i = 0; i < n; i++) {
-            cout << masPets[i]->Say() << endl;
-            numleg += masPets[i]->Legs();
-        }
-        cout << "The number of legs in pets : " << numleg << endl;
-        cin.get();
+        cout << "Perimeter of Rectangle: " << r.perimeter() << endl;
+        cout << "Perimeter of Circle: " << c.perimeter() << endl;
+        cout << "Perimeter of Right Triangle: " << t.perimeter() << endl;
+        cout << "Perimeter of Trapezium: " << z.perimeter() << endl;
+
         return 0;
     }
-
-
 }

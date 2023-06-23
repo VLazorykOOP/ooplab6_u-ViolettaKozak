@@ -1,13 +1,13 @@
 #pragma once
 void Example();
 namespace SpaceExample1 {
-	int mainExample1();
+	int main();
 }
-namespace SpaceExample2 { 
-	int mainExample2(); 
+namespace SpaceExample2 {
+	int main();
 }
 namespace SpaceExample3 {
-	int mainExample3();
+	int main();
 }
 
 
